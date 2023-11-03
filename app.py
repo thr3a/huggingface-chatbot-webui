@@ -94,7 +94,7 @@ chat_interface = gr.ChatInterface(
         ),
         gr.Slider(
             label="Temperature",
-            minimum=0.1,
+            minimum=0,
             maximum=4.0,
             step=0.1,
             value=0,
