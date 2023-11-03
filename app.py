@@ -9,6 +9,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStream
 
 MAX_MAX_NEW_TOKENS = 2048
 DEFAULT_MAX_NEW_TOKENS = 1024
+total_count=0
 MAX_INPUT_TOKEN_LENGTH = int(os.getenv("MAX_INPUT_TOKEN_LENGTH", "4096"))
 
 DESCRIPTION = """\
@@ -39,6 +40,11 @@ def generate(
     top_k: int = 50,
     repetition_penalty: float = 1.2,
 ) -> Iterator[str]:
+    global total_count
+    total_count += 1
+    print(total_count)
+    if total_count % 50 == 0 :
+        os.system("nvidia-smi")
     conversation = []
     if system_prompt:
         conversation.append({"role": "system", "content": system_prompt})
@@ -71,7 +77,7 @@ def generate(
     outputs = []
     for text in streamer:
         outputs.append(text)
-        yield "".join(outputs)
+        yield "".join(outputs).replace("<|EOT|>","")
 
 
 chat_interface = gr.ChatInterface(
