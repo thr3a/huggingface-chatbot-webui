@@ -22,7 +22,7 @@ if not torch.cuda.is_available():
 
 
 if torch.cuda.is_available():
-    model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
+    model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
     model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16, device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     tokenizer.use_default_system_prompt = False
@@ -63,6 +63,7 @@ def generate(
         temperature=temperature,
         num_beams=1,
         repetition_penalty=repetition_penalty,
+        eos_token_id=32021
     )
     t = Thread(target=model.generate, kwargs=generate_kwargs)
     t.start()
