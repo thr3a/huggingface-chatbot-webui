@@ -27,6 +27,7 @@ if torch.cuda.is_available():
     model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16, device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     tokenizer.use_default_system_prompt = False
+    
 
 
 @spaces.GPU
@@ -38,7 +39,7 @@ def generate(
     temperature: float = 0.6,
     top_p: float = 0.9,
     top_k: int = 50,
-    repetition_penalty: float = 1.2,
+    repetition_penalty: float = 1,
 ) -> Iterator[str]:
     global total_count
     total_count += 1
@@ -63,10 +64,9 @@ def generate(
         {"input_ids": input_ids},
         streamer=streamer,
         max_new_tokens=max_new_tokens,
-        do_sample=True,
+        do_sample=False,
         top_p=top_p,
         top_k=top_k,
-        temperature=temperature,
         num_beams=1,
         repetition_penalty=repetition_penalty,
         eos_token_id=32021
