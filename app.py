@@ -64,10 +64,11 @@ def generate(
         {"input_ids": input_ids},
         streamer=streamer,
         max_new_tokens=max_new_tokens,
-        do_sample=False,
+        do_sample=True,
         top_p=top_p,
         top_k=top_k,
         num_beams=1,
+        temperature=temperature,
         repetition_penalty=repetition_penalty,
         eos_token_id=32021
     )
@@ -96,7 +97,7 @@ chat_interface = gr.ChatInterface(
             minimum=0.1,
             maximum=4.0,
             step=0.1,
-            value=0.6,
+            value=0,
         ),
         gr.Slider(
             label="Top-p (nucleus sampling)",
@@ -117,7 +118,7 @@ chat_interface = gr.ChatInterface(
             minimum=1.0,
             maximum=2.0,
             step=0.05,
-            value=1.2,
+            value=1,
         ),
     ],
     stop_btn=None,
