@@ -15,7 +15,9 @@ MAX_INPUT_TOKEN_LENGTH = int(os.getenv("MAX_INPUT_TOKEN_LENGTH", "4096"))
 DESCRIPTION = """\
 # DeepSeek-6.7B-Chat
 
-This Space demonstrates model [DeepSeek-Coder](https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct) by DeepSeek, a code model with 6.7B parameters fine-tuned for chat instructions.
+This space demonstrates model [DeepSeek-Coder](https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct) by DeepSeek, a code model with 6.7B parameters fine-tuned for chat instructions.
+
+**You can also try our 33B model in [official homepage](https://coder.deepseek.com/chat).**
 """
 
 if not torch.cuda.is_available():
