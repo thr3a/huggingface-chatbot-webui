@@ -23,7 +23,7 @@ if not torch.cuda.is_available():
 
 
 if torch.cuda.is_available():
-    model_id = "deepseek-ai/deepseek-coder-1.3b-instruct"
+    model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
     model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16, device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     tokenizer.use_default_system_prompt = False
