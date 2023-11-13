@@ -17,6 +17,7 @@ services:
               capabilities: [gpu]
     volumes:
       - "./:/app"
+      - "./cache:/root/.cache/"
     command: python3 app.py
     # command: sleep infinity
     tty: true
