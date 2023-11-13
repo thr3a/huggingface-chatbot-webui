@@ -70,7 +70,7 @@ def generate(
         top_p=top_p,
         top_k=top_k,
         num_beams=1,
-        # temperature=temperature,
+        temperature=temperature,
         repetition_penalty=repetition_penalty,
         eos_token_id=32021
     )
@@ -94,13 +94,13 @@ chat_interface = gr.ChatInterface(
             step=1,
             value=DEFAULT_MAX_NEW_TOKENS,
         ),
-        # gr.Slider(
-        #     label="Temperature",
-        #     minimum=0,
-        #     maximum=4.0,
-        #     step=0.1,
-        #     value=0,
-        # ),
+        gr.Slider(
+            label="Temperature",
+            minimum=0,
+            maximum=4.0,
+            step=0.1,
+            value=0,
+        ),
         gr.Slider(
             label="Top-p (nucleus sampling)",
             minimum=0.05,
@@ -136,4 +136,4 @@ with gr.Blocks(css="style.css") as demo:
     chat_interface.render()
 
 if __name__ == "__main__":
-    demo.queue(max_size=5).launch()
+    demo.queue(max_size=2).launch()
