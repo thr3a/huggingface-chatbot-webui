@@ -22,7 +22,6 @@ RUN pip install torch==2.1.0 torchvision==0.16.0 --index-url https://download.py
 
 WORKDIR /app
 COPY ./requirements.txt ./
-RUN pip install packaging
 RUN pip install -r requirements.txt
 # RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('guillaumekln/faster-whisper-large-v2')"
 # ENV HF_HUB_OFFLINE=1

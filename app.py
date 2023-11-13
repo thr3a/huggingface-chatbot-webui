@@ -11,13 +11,10 @@ MAX_MAX_NEW_TOKENS = 2048
 DEFAULT_MAX_NEW_TOKENS = 1024
 total_count=0
 MAX_INPUT_TOKEN_LENGTH = int(os.getenv("MAX_INPUT_TOKEN_LENGTH", "4096"))
+MODEL_NAME = "cyberagent/calm2-7b-chat"
 
 DESCRIPTION = """\
-# DeepSeek-6.7B-Chat
-
-This space demonstrates model [DeepSeek-Coder](https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct) by DeepSeek, a code model with 6.7B parameters fine-tuned for chat instructions.
-
-**You can also try our 33B model in [official homepage](https://coder.deepseek.com/chat).**
+# マイチャット
 """
 
 if not torch.cuda.is_available():
@@ -25,9 +22,8 @@ if not torch.cuda.is_available():
 
 
 if torch.cuda.is_available():
-    model_id = "deepseek-ai/deepseek-coder-6.7b-instruct"
-    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.bfloat16, device_map="auto")
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, torch_dtype=torch.bfloat16, device_map="auto")
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     tokenizer.use_default_system_prompt = False
     
 
@@ -99,7 +95,7 @@ chat_interface = gr.ChatInterface(
             minimum=0,
             maximum=4.0,
             step=0.1,
-            value=0,
+            value=0.6,
         ),
         gr.Slider(
             label="Top-p (nucleus sampling)",
@@ -136,4 +132,11 @@ with gr.Blocks(css="style.css") as demo:
     chat_interface.render()
 
 if __name__ == "__main__":
-    demo.queue(max_size=2).launch()
+    # demo.queue(max_size=2).launch(
+    #     share=False,
+    #     server_name="0.0.0.0",
+    # )
+    demo.launch(
+        share=False,
+        server_name="0.0.0.0",
+    )

@@ -18,6 +18,8 @@ services:
     volumes:
       - "./:/app"
       - "./cache:/root/.cache/"
-    command: python3 app.py
+    command: gradio app.py
     # command: sleep infinity
     tty: true
+    ports:
+      - 7860:7860
